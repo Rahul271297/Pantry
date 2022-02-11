@@ -2,11 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 
-const AuthorController = require("../controllers/authorController.js")
-//const Middleware = require("../middlewares/middleware.js")
-const BlogController = require("../controllers/blogController.js")
-
-const Middleware = require("../middlewares/middleware.js")
+const PantryController = require("../controllers/pantryController.js")
+const BasketController = require("../controllers/basketController.js")
 
 
 
@@ -17,11 +14,10 @@ router.get('/test-me', function (req, res) {
 });
 
 
-router.post('/createAuthor', AuthorController.createAuthor);
-router.post('/createBook', BlogController.createBook);
-router.get('/blogs',BlogController.listBlog)
-router.put('/blogs/:blogId',Middleware.auth, BlogController.updateBlog)
-router.post('/login',AuthorController.login )
-router.delete('/blogs/:blogId',Middleware.auth, BlogController.deletedData)
-router.delete('/blogs',Middleware.auth, BlogController.deleteDataByQuery)
+router.post('/createPantry', PantryController.createPantry);
+router.post('/pantry/:PantryId/basket/:BasketName',BasketController.createBasket)
+router.get('/pantry/:PantryId/basket/:BasketName',BasketController.getBasket)
+router.delete('/pantry/:PantryId/basket/:BasketName',BasketController.deleteBasket)
+router.get('/pantry/:pantryId',PantryController.getPantry)
+
 module.exports = router;
