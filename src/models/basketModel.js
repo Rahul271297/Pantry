@@ -11,9 +11,6 @@ var basketSchema = new mongoose.Schema({
     pantryId:{
         type: ObjectId,
     }
-       
-  
-   
-}, {timestamps: true} ) 
+   }, {timestamps: true} ) 
 
 module.exports = mongoose.model( 'Basket',basketSchema )

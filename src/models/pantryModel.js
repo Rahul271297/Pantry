@@ -20,9 +20,9 @@ const  pantrySchema = new mongoose.Schema({
             type:Boolean,
              default: true
             },
-        percentFull:{
-          type:Number
-        }
-    }, {timestamps: true} ) 
+
+        percentFull:{type:Number}
+
+        }, {timestamps: true} ) 
 
 module.exports = mongoose.model( 'Pantry',pantrySchema )
