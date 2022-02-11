@@ -46,9 +46,11 @@ const PantryModel = require('../models/pantryModel.js')
      
   
      
-     let obj = {ttl,store,pantryId:PantryId,name:BasketName}
+     let obj = {ttl,store,PantryId,name:BasketName}
+     
      
     const newData = await BasketModel.create(obj)
+
     const percentUpdate = await PantryModel.findOneAndUpdate({_id:req.params.PantryId},{$inc:{percentFull:1}});
     return res.status(200).send({status:true,msg:newData})
    }catch(error){
@@ -75,30 +77,52 @@ const getBasket = async function (req,res){
   }
 }
 //**************************************Update Basket*************** */
-// const updateBasket = async function(req,res){
-//   try{
-//     const requestBody = req.body ;
+const updateBasket = async function(req,res){
+  try{
     
-//     if(!isValidRequestBody(requestBody)){
-//       return res.status(400).send({status:false,message:"Parameters are required"})
-//     }
-//     let PantryId = req.params.PantryId
-//     let BasketName = req.params.BasketName
-//     const requestBody = req.body ;
+    
+   
+    let PantryId = req.params.PantryId
+    let BasketName = req.params.BasketName
+    const requestBody = req.body ;
+  
 
-//     if(!isValidObjectId(PantryId)){
-//       return res.status(400).send({status:false,msg:"${pantryId} is not correct"})
-//     }
-//     if(!isValidRequestBody(requestBody)){
-//       return res.status(400).send({status:false,message:"Parameters are required"})
-//     }
+
+    if(!isValidObjectId(PantryId)){
+      return res.status(400).send({status:false,msg:"${pantryId} is not correct"})
+    }
+    if(!isValidRequestBody(requestBody)){
+      return res.status(400).send({status:false,message:"Parameters are required"})
+    }
     
+   
+    let basketDetails = await BasketModel.findOne({name:BasketName});
+   // console.log(basketDetails)
+    let object = basketDetails.store;
+    let keys = Object.keys(requestBody)
     
+    let values = Object.values(requestBody)
+    //console.log(keys,values)
+    for(let i = 0;i<keys.length;i++){
+      if(object.hasOwnProperty(keys[i])){
+        object[keys[i]] = values[i]
+
+      }else{
+        object[keys[i]] = values[i]
+
+    }
+
+    }
+    console.log(object)
+     const update = await BasketModel.findOneAndUpdate({name:BasketName},{store:object},{new:true})
+     console.log(update)
+     return res.status(201).send({status:true,Message: "Basket successfully updated",data:update})
     
-//   }catch(error){
-//     return res.status(500).send({status:false,Message:error.message})
-//   }
-// }
+  }catch(error){
+    return res.status(500).send({status:false,Message:error.message})
+  }
+
+}
 
 //*************************************Delete Basket************** */
 
@@ -122,5 +146,5 @@ const deleteBasket = async function(req,res){
 
   }
 }
-module.exports={createBasket,getBasket,deleteBasket}
+module.exports={createBasket,getBasket,deleteBasket,updateBasket}
 

@@ -10,9 +10,9 @@ var basketSchema = new mongoose.Schema({
     ttl:Date,
     pantryId:{
         type: ObjectId,
-        ref: 'Pantry',
-        required : true
     }
+       
+  
    
 }, {timestamps: true} ) 
 
