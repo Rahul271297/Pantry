@@ -1,6 +1,4 @@
- const { send } = require('express/lib/response')
 const  mongoose  = require('mongoose')
-const basketModel = require('../models/basketModel.js')
 const BasketModel = require('../models/basketModel.js')
 const PantryModel = require('../models/pantryModel.js')
 
@@ -51,7 +49,7 @@ const PantryModel = require('../models/pantryModel.js')
      
     const newData = await BasketModel.create(obj)
 
-    const percentUpdate = await PantryModel.findOneAndUpdate({_id:req.params.PantryId},{$inc:{percentFull:1}});
+    //const percentUpdate = await PantryModel.findOneAndUpdate({_id:req.params.PantryId},{$inc:{percentFull:1}});
     return res.status(200).send({status:true,msg:newData})
    }catch(error){
      return res.status(500).send({msg:error.message,status:false})

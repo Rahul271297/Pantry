@@ -56,11 +56,12 @@ const getPantry = async function (req, res) {
         const pId=req.params.pantryId;
 
         const baskets = await BasketModel.find({ pantryId:pId }).select({ _id: 0, name: 1,ttl:1});;
-
+     
         const details= await PantryModel.findOne({_id:pId});
+        
 
         res.status(200).send({ status: true, message: "pantry details", data:{ ...details.toObject(), baskets}});
-
+        
     } catch (error) {
 
       return res.status(500).send({ status: false, message: error.message })
