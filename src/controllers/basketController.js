@@ -44,12 +44,12 @@ const PantryModel = require('../models/pantryModel.js')
      
   
      
-     let obj = {ttl,store,PantryId,name:BasketName}
+     let obj = {ttl,store,pantryId:PantryId,name:BasketName}
      
      
     const newData = await BasketModel.create(obj)
 
-    //const percentUpdate = await PantryModel.findOneAndUpdate({_id:req.params.PantryId},{$inc:{percentFull:1}});
+    const percentUpdate = await PantryModel.findOneAndUpdate({_id:req.params.PantryId},{$inc:{percentFull:1}});
     return res.status(200).send({status:true,msg:newData})
    }catch(error){
      return res.status(500).send({msg:error.message,status:false})
