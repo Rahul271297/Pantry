@@ -7,7 +7,7 @@ const BasketController = require("../controllers/basketController.js")
 
 //**********************************Pantry**************** */
 router.post('/createPantry', PantryController.createPantry);
-router.get('/pantry/:pantryId',PantryController.getPantry)
+router.get('/pantry/:PantryId',PantryController.getPantry)
 /***********************************Basket*********************** */
 router.post('/pantry/:PantryId/basket/:BasketName',BasketController.createBasket)
 router.get('/pantry/:PantryId/basket/:BasketName',BasketController.getBasket)

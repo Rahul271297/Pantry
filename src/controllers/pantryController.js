@@ -53,11 +53,11 @@ const createPantry = async function(req,res){
 
 const getPantry = async function (req, res) {
     try {
-        const pId=req.params.pantryId;
+        let PantryId = req.params.PantryId;
 
-        const baskets = await BasketModel.find({ pantryId:pId }).select({ _id: 0, name: 1,ttl:1});;
+        const baskets = await BasketModel.find({ pantryId:PantryId }).select({ _id: 0, name: 1,ttl:1});;
      
-        const details= await PantryModel.findOne({_id:pId});
+        const details= await PantryModel.findOne({_id:PantryId});
         
 
         res.status(200).send({ status: true, message: "pantry details", data:{ ...details.toObject(), baskets}});
